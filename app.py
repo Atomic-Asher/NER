@@ -15,23 +15,26 @@ def main():
     if st.button("Analyze"):
         doc = trained_model(example_text)
 
-        # Process the text and display the labeled entities
-        labeled_text = process_entities(doc, example_text)
+        # Process the text and display the modified text with labeled entities
+        modified_text = annotate_entities(example_text, doc)
 
-        # Display the modified text with labeled entities
-        st.markdown("Labeled Text:")
-        st.write(labeled_text)
+        # Display the modified text
+        st.write(modified_text)
 
-
-def process_entities(doc, example_text):
-    labeled_text = example_text
+def annotate_entities(text, doc):
+    modified_text = text
 
     for ent in doc.ents:
-        labeled_entity = ent.text + " [" + ent.label_ + "]"
-        labeled_text = labeled_text.replace(ent.text, labeled_entity)
+        entity_text = ent.text
+        entity_label = ent.label_
+        highlighted_text = f"**{entity_text} ({entity_label})**"
+        modified_text = modified_text.replace(entity_text, highlighted_text)
 
-    return labeled_text
-
+    return modified_text
 
 if __name__ == "__main__":
     main()
+
+
+#cd "./OneDrive/Desktop/Atomic Asher/NER"
+#C:\Users\Shruti\AppData\Local\Programs\Python\Python39\python.exe -m streamlit run app.py
