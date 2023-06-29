@@ -1,5 +1,4 @@
 import spacy
-from annotated_text import annotated_text
 import streamlit as st
 
 def main():
@@ -9,7 +8,10 @@ def main():
     st.title("Named Entity Recognition")
     st.write("Enter your text below:")
 
-    #User input
+    # User input
+    example_text = st.text_input("Text")
+
+    # Process user input when button is clicked
     if st.button("Analyze"):
         doc = trained_model(example_text)
 
@@ -19,6 +21,8 @@ def main():
         # Display the modified text with labeled entities
         st.markdown("Labeled Text:")
         st.write(labeled_text)
+
+
 def process_entities(doc, example_text):
     labeled_text = example_text
 
@@ -27,6 +31,7 @@ def process_entities(doc, example_text):
         labeled_text = labeled_text.replace(ent.text, labeled_entity)
 
     return labeled_text
+
 
 if __name__ == "__main__":
     main()
